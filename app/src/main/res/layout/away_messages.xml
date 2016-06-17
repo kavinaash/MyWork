@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="450dp"
+    android:layout_height="300dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Away Messages"
+        android:textStyle="bold"
+        android:id="@+id/awaymessages"
+        android:textAllCaps="true"
+        android:textColor="#4e4e4e"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="12dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00b4ff"
+        android:id="@+id/view4"
+        android:layout_below="@+id/awaymessages"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp">
+    </View>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="450dp"
+        android:layout_height="280dp"
+        android:fillViewport="false"
+        android:layout_marginTop="50dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your away message is automatically sent to customers who text outside your office hours. Set it below.Be sure to turn it  (top right) else it wont go out!"
+        android:textSize="12dp"
+        android:id="@+id/textViewtext"
+
+        android:layout_below="@+id/switch3"
+        android:layout_alignLeft="@+id/textView20"
+        android:layout_alignStart="@+id/textView20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Text"
+        android:textColor="#4e4e4e"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:id="@+id/textView20"
+
+        android:layout_below="@+id/textViewtext"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText11"
+        android:background="@drawable/box"
+        android:layout_below="@+id/textView20"
+        android:layout_alignLeft="@+id/textView20"
+        android:layout_alignStart="@+id/textView20"
+        android:layout_alignRight="@+id/switch3"
+        android:layout_alignEnd="@+id/switch3"
+        android:layout_marginTop="5dp" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch3"
+        android:checked="false"
+
+        android:layout_alignRight="@+id/textViewtext"
+        android:layout_alignEnd="@+id/textViewtext"
+        android:layout_marginRight="36dp"
+        android:layout_marginEnd="36dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day"
+        android:textStyle="bold"
+        android:id="@+id/textView21"
+        android:textColor="#4e4e4e"
+        android:layout_below="@+id/editText11"
+        android:layout_alignLeft="@+id/editText11"
+        android:layout_alignStart="@+id/editText11"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:id="@+id/textView22"
+        android:layout_below="@+id/textView21"
+        android:layout_alignLeft="@+id/textView21"
+        android:layout_alignStart="@+id/textView21"
+        android:textSize="17dp"
+        android:layout_marginTop="7dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tuesday"
+        android:id="@+id/textView23"
+        android:layout_below="@+id/textView22"
+        android:layout_alignLeft="@+id/textView22"
+        android:layout_alignStart="@+id/textView22"
+        android:layout_marginTop="10dp"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Wednesday"
+        android:id="@+id/textView24"
+        android:layout_below="@+id/textView23"
+        android:layout_alignLeft="@+id/textView23"
+        android:layout_alignStart="@+id/textView23"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="Thursday"
+        android:id="@+id/textView25"
+        android:textSize="17dp"
+        android:layout_below="@+id/textView24"
+        android:layout_alignLeft="@+id/textView24"
+        android:layout_alignStart="@+id/textView24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friday"
+        android:textSize="17dp"
+        android:id="@+id/textView26"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView25"
+        android:layout_alignLeft="@+id/textView25"
+        android:layout_alignStart="@+id/textView25" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saturday"
+        android:textSize="17dp"
+        android:id="@+id/textView27"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView26"
+        android:layout_alignLeft="@+id/textView26"
+        android:layout_alignStart="@+id/textView26" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sunday"
+        android:textSize="17dp"
+        android:id="@+id/textView28"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView27"
+        android:layout_alignLeft="@+id/textView27"
+        android:layout_alignStart="@+id/textView27" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Time"
+        android:id="@+id/textView29"
+        android:textStyle="bold"
+        android:textColor="#4e4e4e"
+        android:layout_above="@+id/textView22"
+        android:layout_toLeftOf="@+id/button10"
+        android:layout_toStartOf="@+id/button10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close Time"
+        android:textStyle="bold"
+        android:id="@+id/textView30"
+        android:textColor="#4e4e4e"
+        android:layout_above="@+id/textView22"
+        android:layout_toLeftOf="@+id/switch3"
+        android:layout_toStartOf="@+id/switch3" />
+
+    <Spinner
+        android:layout_width="20dp"
+        android:layout_height="15dp"
+        android:id="@+id/spinner"
+        android:background="@drawable/box"
+        android:layout_alignLeft="@+id/textView29"
+        android:layout_alignStart="@+id/textView29"
+        android:spinnerMode="dropdown"
+        android:layout_alignTop="@+id/textView22"
+        android:layout_toLeftOf="@+id/textView30"
+        android:layout_alignRight="@+id/textView29"
+        android:layout_alignEnd="@+id/textView29"
+        android:layout_above="@+id/textView23" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:background="@drawable/box"
+        android:spinnerMode="dropdown"
+        android:layout_alignTop="@+id/spinner"
+        android:layout_above="@+id/textView23"
+        android:layout_alignLeft="@+id/textView30"
+        android:layout_alignStart="@+id/textView30"
+        android:layout_toLeftOf="@+id/button9"
+        android:layout_alignRight="@+id/textView30"
+        android:layout_alignEnd="@+id/textView30" />
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:text="Save"
+        android:textColor="#fff"
+        android:background="#00b4ff"
+        android:id="@+id/button9"
+        android:layout_below="@+id/textView28"
+        android:layout_alignRight="@+id/switch3"
+        android:layout_alignEnd="@+id/switch3"
+        android:onClick="addAwayMessages"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:id="@+id/button10"
+        android:onClick="cancelDialogAwayMessages"
+        android:layout_alignTop="@+id/button9"
+        android:layout_toLeftOf="@+id/button9"
+        android:layout_toStartOf="@+id/button9" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner3"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/box"
+        android:layout_below="@+id/spinner"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner"
+        android:layout_above="@+id/textView24"
+        android:layout_alignRight="@+id/spinner"
+        android:layout_alignEnd="@+id/spinner"
+        android:layout_marginTop="3dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner4"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="3dp"
+        android:layout_above="@+id/textView24"
+        android:layout_alignLeft="@+id/spinner2"
+        android:layout_alignStart="@+id/spinner2"
+        android:background="@drawable/box"
+        android:layout_below="@+id/spinner2"
+        android:layout_alignRight="@+id/spinner2"
+        android:layout_alignEnd="@+id/spinner2" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner5"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:layout_above="@+id/textView25"
+        android:layout_below="@+id/textView23"
+        android:layout_alignLeft="@+id/spinner3"
+        android:layout_alignStart="@+id/spinner3"
+        android:background="@drawable/box"
+        android:layout_alignRight="@+id/spinner3"
+        android:layout_alignEnd="@+id/spinner3" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner6"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:layout_alignBottom="@+id/spinner5"
+        android:background="@drawable/box"
+        android:layout_alignTop="@+id/textView24"
+        android:layout_alignLeft="@+id/spinner4"
+        android:layout_alignStart="@+id/spinner4"
+        android:layout_alignRight="@+id/spinner4"
+        android:layout_alignEnd="@+id/spinner4" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner7"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/box"
+        android:layout_above="@+id/textView26"
+        android:layout_below="@+id/textView24"
+        android:layout_alignLeft="@+id/spinner5"
+        android:layout_alignStart="@+id/spinner5"
+        android:layout_alignRight="@+id/spinner5"
+        android:layout_alignEnd="@+id/spinner5" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:background="@drawable/box"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner8"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:layout_above="@+id/textView26"
+        android:layout_alignLeft="@+id/spinner6"
+        android:layout_alignStart="@+id/spinner6"
+        android:layout_below="@+id/spinner6"
+        android:layout_alignRight="@+id/spinner6"
+        android:layout_alignEnd="@+id/spinner6" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner9"
+        android:background="@drawable/box"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:layout_above="@+id/textView27"
+        android:layout_below="@+id/textView25"
+        android:layout_alignLeft="@+id/spinner7"
+        android:layout_alignStart="@+id/spinner7"
+        android:layout_alignRight="@+id/spinner7"
+        android:layout_alignEnd="@+id/spinner7" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner10"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/box"
+        android:spinnerMode="dropdown"
+        android:layout_alignBottom="@+id/spinner9"
+        android:layout_alignLeft="@+id/spinner8"
+        android:layout_alignStart="@+id/spinner8"
+        android:layout_below="@+id/spinner8"
+        android:layout_alignRight="@+id/spinner8"
+        android:layout_alignEnd="@+id/spinner8" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/box"
+        android:id="@+id/spinner11"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:layout_above="@+id/textView28"
+        android:layout_below="@+id/textView26"
+        android:layout_alignLeft="@+id/spinner9"
+        android:layout_alignStart="@+id/spinner9"
+        android:layout_alignRight="@+id/spinner9"
+        android:layout_alignEnd="@+id/spinner9" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:background="@drawable/box"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner12"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:layout_alignBottom="@+id/spinner11"
+        android:layout_below="@+id/spinner9"
+        android:layout_alignLeft="@+id/spinner10"
+        android:layout_alignStart="@+id/spinner10"
+        android:layout_alignRight="@+id/spinner10"
+        android:layout_alignEnd="@+id/spinner10" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:background="@drawable/box"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner13"
+        android:layout_marginTop="3dp"
+        android:spinnerMode="dropdown"
+        android:layout_above="@+id/button10"
+        android:layout_alignLeft="@+id/spinner11"
+        android:layout_alignStart="@+id/spinner11"
+        android:layout_alignTop="@+id/textView28"
+        android:layout_alignRight="@+id/spinner11"
+        android:layout_alignEnd="@+id/spinner11" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner14"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="3dp"
+        android:layout_alignLeft="@+id/spinner10"
+        android:layout_alignStart="@+id/spinner10"
+        android:layout_alignBottom="@+id/spinner13"
+        android:layout_alignTop="@+id/spinner13"
+        android:background="@drawable/box"
+        android:layout_alignRight="@+id/spinner12"
+        android:layout_alignEnd="@+id/spinner12" />
+        </RelativeLayout>
+</ScrollView>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch4"
+        android:checked="false"
+        android:layout_alignTop="@+id/awaymessages"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp" />
+
+
+</RelativeLayout>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="500dp"
+    android:layout_height="300dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Canned Responses"
+        android:textStyle="bold"
+        android:id="@+id/cannedresponses"
+        android:textAllCaps="true"
+        android:textColor="#4e4e4e"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="12dp" />
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00b4ff"
+        android:layout_below="@id/cannedresponses"
+        android:id="@+id/view3">
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Canned responses allow you to save pre-written templates and send them quickly."
+        android:layout_below="@+id/view3"
+        android:layout_alignLeft="@+id/cannedresponses"
+        android:layout_alignStart="@+id/cannedresponses"
+        android:layout_marginTop="10dp"
+        android:textSize="12dp"
+        android:id="@+id/textView14" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Short name"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="#4e4e4e"
+        android:id="@+id/textView13"
+        android:layout_below="@+id/textView14"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        android:layout_marginTop="5dp"
+        android:textSize="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText8"
+        android:layout_below="@+id/textView13"
+        android:layout_alignLeft="@+id/textView13"
+        android:layout_alignStart="@+id/textView13"
+        android:background="@drawable/box"
+        android:layout_marginTop="3dp"
+        android:layout_alignRight="@+id/cannedresponses"
+        android:layout_alignEnd="@+id/cannedresponses" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="required"
+        android:id="@+id/textView15"
+        android:textSize="8dp"
+        android:layout_above="@+id/editText8"
+        android:layout_alignRight="@+id/editText8"
+        android:layout_alignEnd="@+id/editText8"
+        android:textColor="#f74535" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="#4e4e4e"
+        android:id="@+id/textView16"
+        android:layout_below="@+id/editText8"
+        android:layout_alignLeft="@+id/editText8"
+        android:layout_alignStart="@+id/editText8"
+        android:layout_marginTop="5dp"
+        android:textSize="10dp" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch2"
+        android:checked="false"
+        android:layout_alignTop="@+id/textView18"
+        android:layout_alignLeft="@+id/textView17"
+        android:layout_alignStart="@+id/textView17" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shared"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="#4e4e4e"
+        android:id="@+id/textView17"
+        android:textSize="10dp"
+        android:layout_alignTop="@+id/textView15"
+        android:layout_alignRight="@+id/button7"
+        android:layout_alignEnd="@+id/button7" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText10"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/textView16"
+        android:layout_alignStart="@+id/textView16"
+        android:background="@drawable/box"
+        android:layout_toLeftOf="@+id/switch2"
+        android:layout_toStartOf="@+id/switch2"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="Save"
+        android:onClick="addCannedREsponse"
+        android:id="@+id/button6"
+        android:layout_alignLeft="@+id/editText10"
+        android:layout_alignStart="@+id/editText10"
+        android:background="#00b4ff"
+        android:textColor="#fff"
+        android:layout_below="@+id/editText10"
+        android:layout_marginTop="5dp"
+        android:textSize="10dp" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="Cancel"
+        android:id="@+id/button7"
+        android:background="#fff"
+        android:layout_alignTop="@+id/button6"
+        android:layout_toRightOf="@+id/editText8"
+        android:layout_toEndOf="@+id/editText8"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tips: While writing message, type {{ to insert individual customer properties i.e. {{first_name}} You can specify fallback if a property does not exist i.e. {{first_name|there}} When messaging a customer, type ## and the short name to insert a canned response. If you set Shared to Yes, all team members will be able to use the canned response."
+        android:id="@+id/textView18"
+        android:layout_below="@+id/textView17"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/textView17"
+        android:textSize="11dp"
+        android:paddingRight="5dp"
+        android:background="#d9edf7"
+        android:textColor="#468fbc"
+        android:layout_alignBottom="@+id/button7"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:id="@+id/button8"
+        android:background="#fff"
+        android:onClick="cancelDialogCannedResponses"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="10dp" />
+
+
+</RelativeLayout>
