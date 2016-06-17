@@ -584,7 +584,9 @@ public class NavigationDraw extends AppCompatActivity {
         myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(NavigationDraw.this,"click",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(NavigationDraw.this,"click",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(NavigationDraw.this,ChatActivity.class);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(myRecyclerViewAdapter);
