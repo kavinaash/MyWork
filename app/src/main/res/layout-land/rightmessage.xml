@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:text="Messenger bot"
+        android:textStyle="bold"
+        android:textColor="#515151"
+        android:id="@+id/textView42"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/view7"
+        android:layout_toStartOf="@+id/view7"
+        android:layout_marginTop="78dp" />
+
+<com.mikhaellopez.circularimageview.CircularImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/ic_launcher"
+    android:id="@+id/view7"
+    android:layout_below="@+id/textView42"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2 days ago"
+        android:id="@+id/textView43"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_alignTop="@+id/textView42"
+        android:layout_toLeftOf="@+id/textView42"
+        android:layout_toStartOf="@+id/textView42" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hi,This is Messenger Bot"
+        android:id="@+id/textView44"
+        android:layout_alignBottom="@+id/view7"
+        android:layout_toLeftOf="@+id/view7"
+        android:layout_toStartOf="@+id/view7"
+        android:textSize="20dp"
+        android:padding="10dp" />
+</RelativeLayout>
