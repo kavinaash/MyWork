@@ -17,14 +17,26 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string-array name="myjson">
-        { profile:
-        { first_name: String,
-        last_name: String,
-        profile_pic: String,
-        locale: String,
-        timezone: {type:SchemaTypes.Double},
-        gender: String },
-        message: String
-        }
+       <item>{
+	"profile": {
+		"first_name": "Avinaash",
+		"last_name": "Komaragiri",
+		"profile_pic": "String",
+		"locale": "Str",
+		"timezone": {
+			"type": "SchemaTypes.Double"
+		},
+		"gender": "Male"
+	},
+	"message": "Hello world"
+}</item>
+    </string-array>
+    <string-array name="conversationList">
+      <item>{
+	"last_message": "Its Working",
+	"time": "2:00 pm",
+	"name": "Person One",
+	"id": "Sender"
+}</item>
     </string-array>
 </resources>

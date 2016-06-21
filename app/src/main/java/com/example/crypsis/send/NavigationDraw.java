@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -31,6 +30,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.socketio.Acknowledge;
 import com.koushikdutta.async.http.socketio.ConnectCallback;
@@ -86,7 +86,7 @@ public class NavigationDraw extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navdrawer);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
-        recyclerView=(RecyclerView)findViewById(R.id.my_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.122:3001/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -277,7 +277,7 @@ public class NavigationDraw extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Mine"));
         tabLayout.addTab(tabLayout.newTab().setText("All"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setTabTextColors(-16777216,-16777216);
+        tabLayout.setTabTextColors(-16777216, -16777216);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -570,27 +570,41 @@ public class NavigationDraw extends AppCompatActivity {
         });
         awayMessages.dismiss();
     }
+
     private void showList() {
-
-        for (int i = 0; i < 5; i++) {
-            MessageModel c = new MessageModel();
-            c.UserName="Avinaash Komaragiri";
-            c.TimeStamp="27 days ago";
-            c.Message="Random MEssage Random message adadfa gha lkasfoasi klfowe";
-
-            cinfo.add(c);
+        String[] myString = getResources().getStringArray(R.array.conversationList);
+        Gson gson = new Gson();
+        for (String e : myString) {
+            ConversationListInfoModel c = new ConversationListInfoModel();
+            ConversationListInfoModel m=new ConversationListInfoModel();
+            c = gson.fromJson(e, ConversationListInfoModel.class);
+            m.name = c.getName();
+            Toast.makeText(NavigationDraw.this, m.name, Toast.LENGTH_SHORT).show();
+//cinfo.add(c);
         }
+//
+//           MessageModel m= gson.fromJson(myString, MessageModel.class);
+
+//        for (int i = 0; i < 5; i++) {
+//            MessageModel c = new MessageModel();
+//
+//            c.UserName="Avinaash Komaragiri";
+//            c.TimeStamp="27 days ago";
+//            c.Message="Random MEssage Random message adadfa gha lkasfoasi klfowe";
+//
+//            cinfo.add(c);
+//        }
 //        myRecyclerViewAdapter.notifyDataSetChanged();
-        myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
-            @Override
-            public void onItemClick(int position) {
-//                Toast.makeText(NavigationDraw.this,"click",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(NavigationDraw.this,ChatActivity.class);
-                startActivity(intent);
-            }
-        });
-        recyclerView.setAdapter(myRecyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
+//            @Override
+//            public void onItemClick(int position) {
+////                Toast.makeText(NavigationDraw.this,"click",Toast.LENGTH_SHORT).show();
+//                Intent intent=new Intent(NavigationDraw.this,ChatActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        recyclerView.setAdapter(myRecyclerViewAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }
