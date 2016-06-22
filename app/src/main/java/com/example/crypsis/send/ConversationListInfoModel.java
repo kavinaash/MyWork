@@ -32,11 +32,11 @@ public class ConversationListInfoModel {
     }
 
     public String getLastMessage() {
-        return this.lastMessage;
+        return lastMessage;
     }
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {

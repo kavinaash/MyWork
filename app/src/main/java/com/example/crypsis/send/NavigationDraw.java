@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -58,7 +59,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NavigationDraw extends AppCompatActivity {
-    List<MessageModel> cinfo = new ArrayList<>();
+    List<ConversationListInfoModel> cinfo = new ArrayList<>();
     DrawerLayout drawerLayout;
     ListView listView;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -575,12 +576,12 @@ public class NavigationDraw extends AppCompatActivity {
         String[] myString = getResources().getStringArray(R.array.conversationList);
         Gson gson = new Gson();
         for (String e : myString) {
-            ConversationListInfoModel c = new ConversationListInfoModel();
+            ConversationListInfoModel c;
             ConversationListInfoModel m=new ConversationListInfoModel();
             c = gson.fromJson(e, ConversationListInfoModel.class);
-            m.name = c.getName();
-            Toast.makeText(NavigationDraw.this, m.name, Toast.LENGTH_SHORT).show();
-//cinfo.add(c);
+            m.name = c.getName();m.lastMessage=c.getLastMessage();m.time=c.getTime();
+//            Toast.makeText(NavigationDraw.this, m.name, Toast.LENGTH_SHORT).show();
+cinfo.add(m);
         }
 //
 //           MessageModel m= gson.fromJson(myString, MessageModel.class);
@@ -595,16 +596,16 @@ public class NavigationDraw extends AppCompatActivity {
 //            cinfo.add(c);
 //        }
 //        myRecyclerViewAdapter.notifyDataSetChanged();
-//        myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
-//            @Override
-//            public void onItemClick(int position) {
-////                Toast.makeText(NavigationDraw.this,"click",Toast.LENGTH_SHORT).show();
-//                Intent intent=new Intent(NavigationDraw.this,ChatActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        recyclerView.setAdapter(myRecyclerViewAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
+            @Override
+            public void onItemClick(int position) {
+//                Toast.makeText(NavigationDraw.this,"click",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(NavigationDraw.this,ChatActivity.class);
+                startActivity(intent);
+            }
+        });
+        recyclerView.setAdapter(myRecyclerViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }

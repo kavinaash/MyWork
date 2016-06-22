@@ -1,20 +1,43 @@
 package com.example.crypsis.send;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.util.List;
 
 /**
  * Created by crypsis on 20/6/16.
  */
 public class MyMessageAdapter extends RecyclerView.Adapter {
+
+   private List<MessageInfoModel> myList;
+    public MyMessageAdapter(List<MessageInfoModel> messageInfoModels)
+    {
+        this.myList=messageInfoModels;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_layout, parent, false);
+        if (viewType==1)
+        {
+
+
+            itemSelector = (RelativeLayout) parent.findViewById(R.id.message);
+            return new leftMessage(itemView);
+        }
+      else
+            return new rightMessage(it)
     }
+//    @Override
+//    public rightMessage onCreateViewHolder(ViewGroup parent, int viewType) {
+//        return null;
+//    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -28,7 +51,10 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+//        return super.getItemViewType(position);
+        MessageInfoModel m=myList.get(position);
+        if(m.getProfile().getId()==Sender)
+            return 1;
     }
 
     public class leftMessage extends RecyclerView.ViewHolder {

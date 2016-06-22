@@ -22,11 +22,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Random text Random text Random text Random text Random text Random text Random text Random text
-                      Random text Random text Random text Random text Random text Random text Random text Random text"
+        android:text="Random Text"
         android:id="@+id/textView31"
         android:layout_below="@+id/textView19"
-        android:layout_alignLeft="@+id/textView19"
+        android:layout_alignLeft="@id/textView19"
         android:layout_alignStart="@+id/textView19" />
 
     <TextView
@@ -34,9 +33,9 @@
         android:layout_height="wrap_content"
         android:text="12 hours ago"
         android:id="@+id/textView32"
-        android:layout_marginLeft="80dp"
-        android:layout_marginStart="80dp"
         android:layout_alignTop="@+id/textView19"
-        android:layout_toRightOf="@+id/textView31"
-        android:layout_toEndOf="@+id/textView31" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="52dp"
+        android:layout_marginEnd="52dp" />
 </RelativeLayout>

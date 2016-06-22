@@ -5,6 +5,15 @@ package com.example.crypsis.send;
  */
 public class MessageInfoModel {
     protected String message;
+    ProfileDetails profile;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public ProfileDetails getProfile() {
+        return profile;
+    }
 
     public class ProfileDetails {
         protected String first_name;
@@ -12,6 +21,7 @@ public class MessageInfoModel {
         protected String profile_pic;
         protected String locale;
         protected String gender;
+        protected String id;
 
         public void setFirst_name(String first_name) {
             this.first_name = first_name;
@@ -34,23 +44,26 @@ public class MessageInfoModel {
         }
 
         public String getFirst_name() {
-            return this.first_name;
+            return first_name;
         }
 
         public String getLast_name() {
-            return this.last_name;
+            return last_name;
         }
 
         public String getProfile_pic() {
-            return this.profile_pic;
+            return profile_pic;
         }
 
         public String getLocale() {
-            return this.locale;
+            return locale;
         }
 
         public String getGender() {
-            return this.gender;
+            return gender;
+        }
+        public String getId(){
+            return id;
         }
     }
     
