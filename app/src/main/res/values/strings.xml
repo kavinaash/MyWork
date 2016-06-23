@@ -17,8 +17,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string-array name="myjson">
-        <item>{ \"profile\": { \"first_name\": \"Avinaash\", \"last_name\": \"Komaragiri\", \"profile_pic\": \"String\", \"locale\": \"Str\", \"timezone\": { \"type\": \"SchemaTypes.Double\" }, \"gender\": \"Male\" }, \"message\": \"Hello world\" }</item>
-        <item>{ \"profile\": { \"first_name\": \"Avinaash\", \"last_name\": \"Komaragiri\", \"profile_pic\": \"String\", \"locale\": \"Str\", \"timezone\": { \"type\": \"SchemaTypes.Double\" }, \"gender\": \"Male\" }, \"message\": \"Hello world\" }</item>
+        <item>{ \"profile\": { \"first_name\": \"Avinaash\", \"last_name\": \"Komaragiri\", \"profile_pic\": \"String\", \"locale\": \"Str\", \"timezone\": { \"type\": \"SchemaTypes.Double\" }, \"gender\": \"Male\" }, \"message\": \"Hello world\" , \"isSender\": \"true\" }</item>
+        <item>{ \"profile\": { \"first_name\": \"Avinaash\", \"last_name\": \"Komaragiri\", \"profile_pic\": \"String\", \"locale\": \"Str\", \"timezone\": { \"type\": \"SchemaTypes.Double\" }, \"gender\": \"Male\" }, \"message\": \"Hi world\" , \"isSender\": \"false\" }</item>
 
     </string-array>
     <string-array name="conversationList">

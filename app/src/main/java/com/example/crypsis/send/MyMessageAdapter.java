@@ -17,22 +17,26 @@ import java.util.List;
 public class MyMessageAdapter extends RecyclerView.Adapter {
 
    private List<MessageInfoModel> myList;
+    RelativeLayout itemSelector;
     public MyMessageAdapter(List<MessageInfoModel> messageInfoModels)
     {
         this.myList=messageInfoModels;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_layout, parent, false);
+
         if (viewType==1)
         {
-
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.leftmessage, parent, false);
 
             itemSelector = (RelativeLayout) parent.findViewById(R.id.message);
             return new leftMessage(itemView);
         }
       else
-            return new rightMessage(it)
+        { View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.rightmessage, parent, false);
+            itemSelector = (RelativeLayout) parent.findViewById(R.id.message);
+            return new rightMessage(itemView);
+        }
     }
 //    @Override
 //    public rightMessage onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,19 +46,41 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+        if(holder.getItemViewType()==2)
+        {right((rightMessage)holder,position);}
+        else
+        {
+            left((leftMessage)holder,position);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return myList.size();
+    }
+    private void right(final rightMessage rightMessage,int position)
+    {
+        MessageInfoModel m=myList.get(position);
+        rightMessage.myName.setText(m.getProfile().first_name);
+        rightMessage.myTimestamp.setText((m.getProfile().locale));
+        rightMessage.myMessage.setText(m.getMessage());
     }
 
+    private void left(final leftMessage leftMessage,int position)
+    {
+        MessageInfoModel m=myList.get(position);
+        leftMessage.senderName.setText(m.getProfile().first_name);
+        leftMessage.senderTimestamp.setText(m.getProfile().locale);
+        leftMessage.senderMessage.setText(m.getMessage());
+    }
     @Override
     public int getItemViewType(int position) {
 //        return super.getItemViewType(position);
         MessageInfoModel m=myList.get(position);
-        if(m.getProfile().getId()==Sender)
+        if(m.isSender())
             return 1;
+        else
+            return 2;
     }
 
     public class leftMessage extends RecyclerView.ViewHolder {

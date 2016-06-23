@@ -5,6 +5,12 @@ package com.example.crypsis.send;
  */
 public class MessageInfoModel {
     protected String message;
+    protected boolean isSender;
+
+    public boolean isSender() {
+        return isSender;
+    }
+
     ProfileDetails profile;
 
     public String getMessage() {
