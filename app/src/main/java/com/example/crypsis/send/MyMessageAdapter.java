@@ -29,12 +29,12 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
         {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.leftmessage, parent, false);
 
-            itemSelector = (RelativeLayout) parent.findViewById(R.id.message);
+            itemSelector = (RelativeLayout) parent.findViewById(R.id.chatId);
             return new leftMessage(itemView);
         }
       else
         { View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.rightmessage, parent, false);
-            itemSelector = (RelativeLayout) parent.findViewById(R.id.message);
+            itemSelector = (RelativeLayout) parent.findViewById(R.id.chatId);
             return new rightMessage(itemView);
         }
     }
@@ -88,6 +88,7 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
         protected TextView senderName;
         protected TextView senderTimestamp;
         protected TextView senderMessage;
+        RelativeLayout r;
 
         public leftMessage(View itemView) {
             super(itemView);
@@ -95,7 +96,7 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
             senderName=(TextView)itemView.findViewById(R.id.textView39);
             senderTimestamp=(TextView)itemView.findViewById(R.id.textView40);
             senderMessage=(TextView)itemView.findViewById(R.id.textView41);
-
+r=(RelativeLayout)itemView.findViewById(R.id.chatId);
         }
     }
 
@@ -104,6 +105,7 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
         protected TextView myName;
         protected TextView myTimestamp;
         protected TextView myMessage;
+        RelativeLayout r;
 
 
         public rightMessage(View itemView) {
@@ -112,6 +114,7 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
             myName=(TextView)itemView.findViewById(R.id.textView42);
             myTimestamp=(TextView)itemView.findViewById(R.id.textView43);
             myMessage=(TextView)itemView.findViewById(R.id.textView44);
+            r=(RelativeLayout)itemView.findViewById(R.id.chatId);
         }
     }
 }

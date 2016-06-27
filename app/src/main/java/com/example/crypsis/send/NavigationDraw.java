@@ -31,19 +31,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
-import com.koushikdutta.async.http.AsyncHttpClient;
-import com.koushikdutta.async.http.socketio.Acknowledge;
-import com.koushikdutta.async.http.socketio.ConnectCallback;
-import com.koushikdutta.async.http.socketio.EventCallback;
-import com.koushikdutta.async.http.socketio.JSONCallback;
-import com.koushikdutta.async.http.socketio.SocketIOClient;
-import com.koushikdutta.async.http.socketio.StringCallback;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +75,12 @@ public class NavigationDraw extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterr, arrayAdapter1;
     RecyclerView recyclerView;
     MyRecyclerViewAdapter myRecyclerViewAdapter;
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("http://192.168.0.150:3000/");
+        } catch (URISyntaxException e) {e.printStackTrace();}
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,36 +92,53 @@ public class NavigationDraw extends AppCompatActivity {
                 .baseUrl("http://192.168.0.122:3001/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        showList();
+//        showList();
+        mSocket.on("load_old_messages",onNewMessage);
+        mSocket.connect();
+        mSocket.connected();
 
-        SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), "http://192.168.0.150:3001", new ConnectCallback() {
-            @Override
-            public void onConnectCompleted(Exception ex, SocketIOClient client) {
-                if (ex != null) {
-                    ex.printStackTrace();
-                    return;
-                }
-                client.setStringCallback(new StringCallback() {
-                    @Override
-                    public void onString(String string, Acknowledge acknowledge) {
-                        System.out.println(string);
-                    }
-                });
-                client.on("someEvent", new EventCallback() {
-                    @Override
-                    public void onEvent(JSONArray argument, Acknowledge acknowledge) {
-                        System.out.println("args: " + argument.toString());
-                        Toast.makeText(NavigationDraw.this, "data received", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                client.setJSONCallback(new JSONCallback() {
-                    @Override
-                    public void onJSON(JSONObject json, Acknowledge acknowledge) {
-                        System.out.println("json: " + json.toString());
-                    }
-                });
-            }
-        });
+
+//        SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), "http://192.168.0.150:3000/", new ConnectCallback() {
+//            @Override
+//            public void onConnectCompleted(Exception ex, SocketIOClient client) {
+//                if (ex != null) {
+//                    Toast.makeText(NavigationDraw.this,"successful connection",Toast.LENGTH_SHORT).show();
+//                    ex.printStackTrace();
+//                    return;
+//                }
+//                client.setStringCallback(new StringCallback() {
+//                    @Override
+//                    public void onString(String string, Acknowledge acknowledge) {
+//                        System.out.println(string);
+//                    }
+//                });
+//                client.on("load old messages", new EventCallback() {
+//                    @Override
+//                    public void onEvent(JSONArray argument, Acknowledge acknowledge) {
+//                        System.out.println("args: " + argument.toString());
+//                        Toast.makeText(NavigationDraw.this, "data received", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                client.setJSONCallback(new JSONCallback() {
+//                    @Override
+//                    public void onJSON(JSONObject json, Acknowledge acknowledge) {
+//                        System.out.println("json:" + json.toString());
+//                    }
+//                });
+//            }
+//        });
+
+
+
+//        Socket socket=null;
+//        try {
+//
+//
+//        }
+//        catch (UnknownHostException e)
+//        {
+//            e.printStackTrace();
+//        }
 
         string = (String) getTitle();
         arrayAdapterr = new ArrayAdapter<String>(this, R.layout.text);
@@ -304,6 +321,36 @@ public class NavigationDraw extends AppCompatActivity {
 
 
     }
+private Emitter.Listener onNewMessage=new Emitter.Listener() {
+    @Override
+    public void call(final Object... args) {
+        NavigationDraw.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(NavigationDraw.this,"connected",Toast.LENGTH_SHORT).show();
+//                JSONObject data = (JSONObject) args[0];
+//                String username;
+//                String message;
+//                try {
+//                    username = data.getString("username");
+//                    message = data.getString("message");
+//                } catch (JSONException e) {
+//                    return;
+//                }
+
+                // add the message to view
+//                addMessage(username, message);
+            }
+        });
+    }
+};
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mSocket.disconnect();
+        mSocket.off("load old messages", onNewMessage);
+    }
 
     public static <S> S createService(Class<S> serviceClass) {
         Retrofit retrofit = new Retrofit.Builder().client(httpClient.build()).build();
@@ -321,6 +368,7 @@ public class NavigationDraw extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
