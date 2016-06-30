@@ -11,17 +11,15 @@ public class MessageInfoModel {
         return isSender;
     }
 
-    ProfileDetails profile;
+
 
     public String getMessage() {
         return message;
     }
 
-    public ProfileDetails getProfile() {
-        return profile;
-    }
 
-    public class ProfileDetails {
+
+
         protected String first_name;
         protected String last_name;
         protected String profile_pic;
@@ -71,6 +69,6 @@ public class MessageInfoModel {
         public String getId(){
             return id;
         }
-    }
+
     
 }

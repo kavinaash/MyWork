@@ -34,7 +34,10 @@ import android.widget.Toast;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -76,11 +79,7 @@ public class NavigationDraw extends AppCompatActivity {
     RecyclerView recyclerView;
     MyRecyclerViewAdapter myRecyclerViewAdapter;
     private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://192.168.0.150:3000/");
-        } catch (URISyntaxException e) {e.printStackTrace();}
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +92,18 @@ public class NavigationDraw extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 //        showList();
-        mSocket.on("load_old_messages",onNewMessage);
+
+
+        try {
+            mSocket = IO.socket("http://192.168.0.150:3000/");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
         mSocket.connect();
-        mSocket.connected();
+        mSocket.on("load_old_messages", onNewMessage);
+        Log.d("test", "is connected:" + mSocket.connected());
+        mSocket.emit("new_user", "avinaash");
 
 
 //        SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), "http://192.168.0.150:3000/", new ConnectCallback() {
@@ -127,7 +135,6 @@ public class NavigationDraw extends AppCompatActivity {
 //                });
 //            }
 //        });
-
 
 
 //        Socket socket=null;
@@ -321,29 +328,48 @@ public class NavigationDraw extends AppCompatActivity {
 
 
     }
-private Emitter.Listener onNewMessage=new Emitter.Listener() {
-    @Override
-    public void call(final Object... args) {
-        NavigationDraw.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(NavigationDraw.this,"connected",Toast.LENGTH_SHORT).show();
-//                JSONObject data = (JSONObject) args[0];
-//                String username;
-//                String message;
-//                try {
-//                    username = data.getString("username");
-//                    message = data.getString("message");
-//                } catch (JSONException e) {
-//                    return;
-//                }
 
-                // add the message to view
-//                addMessage(username, message);
-            }
-        });
-    }
-};
+    private Emitter.Listener onNewMessage = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            NavigationDraw.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONArray jsonArray = (JSONArray) args[0];
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        try {
+                            JSONObject m = jsonArray.getJSONObject(i);
+                            ConversationListInfoModel conversationListInfoModel = new ConversationListInfoModel();
+
+                            conversationListInfoModel.firstName = m.getString("firstName");
+                            conversationListInfoModel.lastMessage = m.getString("lastMessage");
+                            conversationListInfoModel.fbid = m.getLong("fbid");
+                            ChatActivity activity=new ChatActivity();
+                            activity.currentId=m.getLong("fbid");
+                            cinfo.add(conversationListInfoModel);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
+                        @Override
+                        public void onItemClick(int position) {
+                            ConversationListInfoModel m = myRecyclerViewAdapter.getItem(position);
+                            Number number = m.getFbid();
+                            mSocket.emit("id", number);
+                            Intent intent = new Intent(NavigationDraw.this, ChatActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    recyclerView.setAdapter(myRecyclerViewAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(NavigationDraw.this));
+
+                }
+            });
+        }
+    };
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -620,40 +646,28 @@ private Emitter.Listener onNewMessage=new Emitter.Listener() {
         awayMessages.dismiss();
     }
 
-    private void showList() {
-        String[] myString = getResources().getStringArray(R.array.conversationList);
-        Gson gson = new Gson();
-        for (String e : myString) {
-            ConversationListInfoModel c;
-            ConversationListInfoModel m=new ConversationListInfoModel();
-            c = gson.fromJson(e, ConversationListInfoModel.class);
-            m.name = c.getName();m.lastMessage=c.getLastMessage();m.time=c.getTime();
-//            Toast.makeText(NavigationDraw.this, m.name, Toast.LENGTH_SHORT).show();
-cinfo.add(m);
-        }
+//    private void showList() {
+//        String[] myString = getResources().getStringArray(R.array.conversationList);
+//        Gson gson = new Gson();
+//        for (String e : myString) {
+//            ConversationListInfoModel c;
+//            ConversationListInfoModel m=new ConversationListInfoModel();
+//            c = gson.fromJson(e, ConversationListInfoModel.class);
+//            m.name = c.getName();m.lastMessage=c.getLastMessage();m.time=c.getTime();
 //
-//           MessageModel m= gson.fromJson(myString, MessageModel.class);
-
-//        for (int i = 0; i < 5; i++) {
-//            MessageModel c = new MessageModel();
-//
-//            c.UserName="Avinaash Komaragiri";
-//            c.TimeStamp="27 days ago";
-//            c.Message="Random MEssage Random message adadfa gha lkasfoasi klfowe";
-//
-//            cinfo.add(c);
+//cinfo.add(m);
 //        }
-//        myRecyclerViewAdapter.notifyDataSetChanged();
-        myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
-            @Override
-            public void onItemClick(int position) {
-//                Toast.makeText(NavigationDraw.this,"click",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(NavigationDraw.this,ChatActivity.class);
-                startActivity(intent);
-            }
-        });
-        recyclerView.setAdapter(myRecyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
+//
+//        myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
+//            @Override
+//            public void onItemClick(int position) {
+//
+//                Intent intent=new Intent(NavigationDraw.this,ChatActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        recyclerView.setAdapter(myRecyclerViewAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//    }
 
 }

@@ -36,9 +36,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(final CustomerViewHolder holder, int position) {
         ConversationListInfoModel customerInfo = customerInfoList.get(position);
-        holder.name.setText(customerInfo.name);
+        holder.name.setText(customerInfo.firstName);
         holder.message.setText(customerInfo.lastMessage);
-        holder.timestamp.setText(customerInfo.time);
+//        holder.timestamp.setText(customerInfo.time);
         if (holder.relativeLayout != null && callBack != null) {
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,6 +71,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             relativeLayout = (RelativeLayout) itemView.findViewById(R.id.message);
         }
     }
+    public ConversationListInfoModel getItem(int position) {
+        return customerInfoList.get(position);
+    }
+
 }
 
 interface CallBack {

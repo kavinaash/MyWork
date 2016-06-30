@@ -7,10 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +25,8 @@ public class ChatActivity extends AppCompatActivity {
     List<MessageInfoModel> cinfo = new ArrayList<>();
     MyMessageAdapter myMessageAdapter;
     RecyclerView recyclerView;
-    EditText message;
+    EditText message;Long currentId;
+    private Socket mySocket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,52 +34,73 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         recyclerView=(RecyclerView)findViewById(R.id.my_recyclerView);
-        message=(EditText)findViewById(R.id.editText14);
-//        SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), "http://192.168.0.150:3000/test", new ConnectCallback() {
-//            @Override
-//            public void onConnectCompleted(Exception ex, SocketIOClient client) {
-//                if (ex != null) {
-//                    ex.printStackTrace();
-//                    return;
-//                }
-//                client.setStringCallback(new StringCallback() {
-//                    @Override
-//                    public void onString(String string, Acknowledge acknowledge) {
-//                        System.out.println(string);
-//                    }
-//                });
-//                client.on("New Message", new EventCallback() {
-//                    @Override
-//                    public void onEvent(JSONArray argument, Acknowledge acknowledge) {
-//                        System.out.println("args: " + argument.toString());
-//                        Toast.makeText(ChatActivity.this, "data received", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                client.setJSONCallback(new JSONCallback() {
-//                    @Override
-//                    public void onJSON(JSONObject json, Acknowledge acknowledge) {
-//                        System.out.println("json:" + json.toString());
-//                    }
-//                });
-//            }
-//        });
 
-        String[] myString1 = getResources().getStringArray(R.array.myjson);
-        Gson gson = new Gson();
-        for (String e : myString1) {
-            MessageInfoModel messageInfoModel = gson.fromJson(e, MessageInfoModel.class);
-            cinfo.add(messageInfoModel);
-
+        try {
+            mySocket = IO.socket("http://192.168.0.150:3000/");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
-        myMessageAdapter=new MyMessageAdapter(cinfo);
-recyclerView.setAdapter(myMessageAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mySocket.connect();
+        mySocket.on("requested_user", NewMessage);
+//        String[] myString1 = getResources().getStringArray(R.array.myjson);
+//        Gson gson = new Gson();
+//        for (String e : myString1) {
+//            MessageInfoModel messageInfoModel = gson.fromJson(e, MessageInfoModel.class);
+//            cinfo.add(messageInfoModel);
+//
+//        }
+//        myMessageAdapter=new MyMessageAdapter(cinfo);
+//recyclerView.setAdapter(myMessageAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
+    private Emitter.Listener NewMessage= new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            ChatActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    JSONArray jsonArray=(JSONArray)args[0];
+                    for(int i=0;i<jsonArray.length();i++) {
+                        try {
+                            JSONObject m = jsonArray.getJSONObject(i);
+                            MessageInfoModel messageInfoModel=new MessageInfoModel();
+                            messageInfoModel.gender=m.getString("gender");
+//                          String s=  messageInfoModel.last_name=m.getString("last_name");
+//                            String str=m.getString("message");
+
+                            messageInfoModel.isSender=m.getBoolean("isSender");
+
+//
+//                            conversationListInfoModel.firstName = m.getString("firstName");
+//                            conversationListInfoModel.lastMessage=m.getString("lastMessage");
+//                            conversationListInfoModel.fbid=m.getLong("fbid");
+                            cinfo.add(messageInfoModel);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } myMessageAdapter=new MyMessageAdapter(cinfo);
+recyclerView.setAdapter(myMessageAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
+
+                }
+            });
+
+        }
+    };
     public void newMessage(View view)
-    {
-//        message.getText().toString();
-        Toast.makeText(ChatActivity.this,"new message",Toast.LENGTH_SHORT).show();
+    {        message=(EditText)findViewById(R.id.editText14);
+        Gson gson=new Gson();
+        NewMessageObject newMessageObject=new NewMessageObject();
+        newMessageObject.message=message.toString();
+        newMessageObject.fbid=currentId;
+        String json=gson.toJson(newMessageObject);
+        mySocket.emit("NewMessage",json);
+
+
 
     }
 
@@ -91,5 +120,13 @@ recyclerView.setAdapter(myMessageAdapter);
 //            t3.setText(name);
 //
 //        }
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        mySocket.disconnect();
+//        mySocket.off("requested_user", NewMessage);
 //    }
 }

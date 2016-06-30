@@ -1,51 +1,66 @@
 package com.example.crypsis.send;
 
+import java.util.Date;
+
 /**
  * Created by crypsis on 21/6/16.
  */
 public class ConversationListInfoModel {
-    protected String lastMessage;
-    protected String time;
-    protected String name;
-    protected String id;
 
+        protected String lastMessage;
+        protected Date time;
+        protected String firstName;
+        protected String lastName;
+        protected Number fbid;
 
-    public String getName() {
-        return name;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getId() {
-        return id;
+    public void setFbid(Number fbid) {
+        this.fbid = fbid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getLastName() {
+            return lastName;
+        }
+
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public Number getFbid() {
+            return fbid;
+        }
+
+
+        public Date getTime() {
+            return time;
+        }
+
+        public void setLastMessage(String lastMessage) {
+            this.lastMessage = lastMessage;
+        }
+
+        public String getLastMessage() {
+            return lastMessage;
+        }
+
+
+
+        @Override
+        public String toString() {
+            return this.firstName;
+        }
+
     }
 
-    @Override
-    public String toString() {
-        return this.name;
-    }
-
-}

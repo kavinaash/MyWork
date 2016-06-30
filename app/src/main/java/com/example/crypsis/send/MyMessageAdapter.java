@@ -61,16 +61,16 @@ public class MyMessageAdapter extends RecyclerView.Adapter {
     private void right(final rightMessage rightMessage,int position)
     {
         MessageInfoModel m=myList.get(position);
-        rightMessage.myName.setText(m.getProfile().first_name);
-        rightMessage.myTimestamp.setText((m.getProfile().locale));
+        rightMessage.myName.setText(m.getFirst_name());
+        rightMessage.myTimestamp.setText(m.getLocale());
         rightMessage.myMessage.setText(m.getMessage());
     }
 
     private void left(final leftMessage leftMessage,int position)
     {
         MessageInfoModel m=myList.get(position);
-        leftMessage.senderName.setText(m.getProfile().first_name);
-        leftMessage.senderTimestamp.setText(m.getProfile().locale);
+        leftMessage.senderName.setText(m.getFirst_name());
+        leftMessage.senderTimestamp.setText(m.getLocale());
         leftMessage.senderMessage.setText(m.getMessage());
     }
     @Override
