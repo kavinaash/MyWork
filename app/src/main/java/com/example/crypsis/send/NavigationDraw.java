@@ -68,6 +68,7 @@ public class NavigationDraw extends AppCompatActivity {
     Retrofit retrofit;
     TextView textView;
     static final int SELECTED_PICTURE = 2;
+    static final int CONVERSATION_LIST=3;
     ImageView imageView;
     EditText e1, e2, e3, e4, e5, e6;
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -106,46 +107,6 @@ public class NavigationDraw extends AppCompatActivity {
         mSocket.emit("new_user", "avinaash");
 
 
-//        SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), "http://192.168.0.150:3000/", new ConnectCallback() {
-//            @Override
-//            public void onConnectCompleted(Exception ex, SocketIOClient client) {
-//                if (ex != null) {
-//                    Toast.makeText(NavigationDraw.this,"successful connection",Toast.LENGTH_SHORT).show();
-//                    ex.printStackTrace();
-//                    return;
-//                }
-//                client.setStringCallback(new StringCallback() {
-//                    @Override
-//                    public void onString(String string, Acknowledge acknowledge) {
-//                        System.out.println(string);
-//                    }
-//                });
-//                client.on("load old messages", new EventCallback() {
-//                    @Override
-//                    public void onEvent(JSONArray argument, Acknowledge acknowledge) {
-//                        System.out.println("args: " + argument.toString());
-//                        Toast.makeText(NavigationDraw.this, "data received", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                client.setJSONCallback(new JSONCallback() {
-//                    @Override
-//                    public void onJSON(JSONObject json, Acknowledge acknowledge) {
-//                        System.out.println("json:" + json.toString());
-//                    }
-//                });
-//            }
-//        });
-
-
-//        Socket socket=null;
-//        try {
-//
-//
-//        }
-//        catch (UnknownHostException e)
-//        {
-//            e.printStackTrace();
-//        }
 
         string = (String) getTitle();
         arrayAdapterr = new ArrayAdapter<String>(this, R.layout.text);
@@ -344,8 +305,6 @@ public class NavigationDraw extends AppCompatActivity {
                             conversationListInfoModel.firstName = m.getString("firstName");
                             conversationListInfoModel.lastMessage = m.getString("lastMessage");
                             conversationListInfoModel.fbid = m.getLong("fbid");
-                            ChatActivity activity=new ChatActivity();
-                            activity.currentId=m.getLong("fbid");
                             cinfo.add(conversationListInfoModel);
 
                         } catch (JSONException e) {
@@ -359,7 +318,7 @@ public class NavigationDraw extends AppCompatActivity {
                             Number number = m.getFbid();
                             mSocket.emit("id", number);
                             Intent intent = new Intent(NavigationDraw.this, ChatActivity.class);
-                            startActivity(intent);
+                            startActivityForResult(intent,CONVERSATION_LIST);
                         }
                     });
                     recyclerView.setAdapter(myRecyclerViewAdapter);
@@ -525,6 +484,10 @@ public class NavigationDraw extends AppCompatActivity {
             imageView = (ImageView) findViewById(R.id.imageView2);
             imageView.setImageURI(data.getData());
             uploadFile(data.getData(), firstName, lastName, phoneNumber, email, subscribed);
+        }
+        if(requestCode==CONVERSATION_LIST)
+        {
+
         }
     }
 

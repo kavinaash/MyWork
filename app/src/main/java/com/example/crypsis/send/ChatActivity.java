@@ -43,6 +43,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mySocket.connect();
         mySocket.on("requested_user", NewMessage);
+        mySocket.on("New_Message",updateAdminMessage);
 //        String[] myString1 = getResources().getStringArray(R.array.myjson);
 //        Gson gson = new Gson();
 //        for (String e : myString1) {
@@ -55,6 +56,43 @@ public class ChatActivity extends AppCompatActivity {
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
+    private  Emitter.Listener updateAdminMessage= new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+      ChatActivity.this.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+
+              JSONObject jsonArray=(JSONObject)args[0];
+
+                  try {
+//                      JSONObject m = jsonArray.getJSONObject(args[0]);
+                      MessageInfoModel messageInfoModel=new MessageInfoModel();
+                      messageInfoModel.gender=jsonArray.getString("gender");
+                      messageInfoModel.last_name=jsonArray.getString("last_name");
+                      messageInfoModel.first_name=jsonArray.getString("first_name");
+                      messageInfoModel.message=jsonArray.getString("message");
+                      messageInfoModel.locale=jsonArray.getString("locale");
+                      messageInfoModel.profile_pic=jsonArray.getString("profile_pic");
+
+                      messageInfoModel.isSender=jsonArray.getBoolean("isSender");
+
+
+                      cinfo.add(messageInfoModel);
+
+                  } catch (JSONException e) {
+                      e.printStackTrace();
+                  }
+
+              myMessageAdapter.notifyItemInserted(cinfo.size()-1);
+
+              recyclerView.scrollToPosition(cinfo.size()-1);
+          }
+
+      });
+        }
+    };
+
     private Emitter.Listener NewMessage= new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -68,10 +106,14 @@ public class ChatActivity extends AppCompatActivity {
                             JSONObject m = jsonArray.getJSONObject(i);
                             MessageInfoModel messageInfoModel=new MessageInfoModel();
                             messageInfoModel.gender=m.getString("gender");
-//                          String s=  messageInfoModel.last_name=m.getString("last_name");
-//                            String str=m.getString("message");
+                         messageInfoModel.last_name=m.getString("last_name");
+                            messageInfoModel.first_name=m.getString("first_name");
+                          messageInfoModel.message=m.getString("message");
+                            messageInfoModel.locale=m.getString("locale");
+                            messageInfoModel.profile_pic=m.getString("profile_pic");
 
                             messageInfoModel.isSender=m.getBoolean("isSender");
+                            currentId=m.getLong("fbid");
 
 //
 //                            conversationListInfoModel.firstName = m.getString("firstName");
@@ -95,11 +137,17 @@ recyclerView.setAdapter(myMessageAdapter);
     {        message=(EditText)findViewById(R.id.editText14);
         Gson gson=new Gson();
         NewMessageObject newMessageObject=new NewMessageObject();
-        newMessageObject.message=message.toString();
+        newMessageObject.message=message.getText().toString();
         newMessageObject.fbid=currentId;
         String json=gson.toJson(newMessageObject);
-        mySocket.emit("NewMessage",json);
-
+        mySocket.emit("admin", json);
+//        MessageInfoModel messageInfoModel=new MessageInfoModel();
+//        messageInfoModel.message=message.getText().toString();
+//        messageInfoModel.isSender=false;
+//        cinfo.add(messageInfoModel);
+//        myMessageAdapter.notifyItemInserted(cinfo.size()-1);
+//
+//        recyclerView.scrollToPosition(cinfo.size()-1);
 
 
     }
