@@ -60,7 +60,7 @@ public class NavigationDraw extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ListView listView;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    String string = "";
+    String string = "";Number number;ConversationListInfoModel m;
     LinearLayout linearLayout;
     EditText invite, addphone, awaymessagetext;
     String id, firstName, lastName, phoneNumber, email, shortName, message;
@@ -96,7 +96,7 @@ public class NavigationDraw extends AppCompatActivity {
 
 
         try {
-            mSocket = IO.socket("http://192.168.0.150:3000/");
+            mSocket = IO.socket("http://192.168.0.135:3000/");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -314,8 +314,8 @@ public class NavigationDraw extends AppCompatActivity {
                     myRecyclerViewAdapter = new MyRecyclerViewAdapter(cinfo, new CallBack() {
                         @Override
                         public void onItemClick(int position) {
-                            ConversationListInfoModel m = myRecyclerViewAdapter.getItem(position);
-                            Number number = m.getFbid();
+                             m= myRecyclerViewAdapter.getItem(position);
+                            number = m.getFbid();
                             mSocket.emit("id", number);
                             Intent intent = new Intent(NavigationDraw.this, ChatActivity.class);
                             startActivityForResult(intent,CONVERSATION_LIST);
@@ -480,13 +480,24 @@ public class NavigationDraw extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && requestCode==SELECTED_PICTURE) {
             imageView = (ImageView) findViewById(R.id.imageView2);
             imageView.setImageURI(data.getData());
             uploadFile(data.getData(), firstName, lastName, phoneNumber, email, subscribed);
         }
-        if(requestCode==CONVERSATION_LIST)
+        if(resultCode==RESULT_OK && requestCode==CONVERSATION_LIST)
         {
+            String message = data.getExtras().getString("msg");
+            Long id = data.getExtras().getLong("id");
+            m.lastMessage=message;
+            myRecyclerViewAdapter.notifyDataSetChanged();
+//            for (ConversationListInfoModel e:cinfo)
+//            {
+//                if(e.fbid==id)
+//                {Toast.makeText(NavigationDraw.this,"found",Toast.LENGTH_SHORT).show();
+//                    e.lastMessage=message;myRecyclerViewAdapter.notifyDataSetChanged();
+//                }
+//            }
 
         }
     }

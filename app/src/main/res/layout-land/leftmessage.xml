@@ -11,11 +11,12 @@
         android:textColor="#515151"
         android:textStyle="bold"
         android:id="@+id/textView39"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/view6"
         android:layout_toEndOf="@+id/view6"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:textSize="10dp" />
 
 <com.mikhaellopez.circularimageview.CircularImageView
     android:layout_width="50dp"
@@ -35,7 +36,8 @@
         android:layout_marginStart="51dp"
         android:layout_alignTop="@+id/textView39"
         android:layout_toRightOf="@+id/textView39"
-        android:layout_toEndOf="@+id/textView39" />
+        android:layout_toEndOf="@+id/textView39"
+        android:textSize="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,6 +47,7 @@
         android:layout_alignBottom="@+id/view6"
         android:layout_alignLeft="@+id/textView39"
         android:layout_alignStart="@+id/textView39"
-        android:textSize="20dp"
-        android:padding="10dp" />
+        android:textSize="15dp"
+        android:padding="10dp"
+        android:background="#f9f9f9" />
 </RelativeLayout>

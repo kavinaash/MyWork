@@ -1,5 +1,6 @@
 package com.example.crypsis.send;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +27,7 @@ public class ChatActivity extends AppCompatActivity {
     MyMessageAdapter myMessageAdapter;
     RecyclerView recyclerView;
     EditText message;Long currentId;
-    private Socket mySocket;
+    private Socket mySocket;String newMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.my_recyclerView);
 
         try {
-            mySocket = IO.socket("http://192.168.0.150:3000/");
+            mySocket = IO.socket("http://192.168.0.135:3000/");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -109,16 +110,12 @@ public class ChatActivity extends AppCompatActivity {
                          messageInfoModel.last_name=m.getString("last_name");
                             messageInfoModel.first_name=m.getString("first_name");
                           messageInfoModel.message=m.getString("message");
+                            newMessage=m.getString("message");
                             messageInfoModel.locale=m.getString("locale");
                             messageInfoModel.profile_pic=m.getString("profile_pic");
 
                             messageInfoModel.isSender=m.getBoolean("isSender");
                             currentId=m.getLong("fbid");
-
-//
-//                            conversationListInfoModel.firstName = m.getString("firstName");
-//                            conversationListInfoModel.lastMessage=m.getString("lastMessage");
-//                            conversationListInfoModel.fbid=m.getLong("fbid");
                             cinfo.add(messageInfoModel);
 
                         } catch (JSONException e) {
@@ -127,6 +124,11 @@ public class ChatActivity extends AppCompatActivity {
                     } myMessageAdapter=new MyMessageAdapter(cinfo);
 recyclerView.setAdapter(myMessageAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
+                    recyclerView.scrollToPosition(cinfo.size()-1);
+                    Intent intent=new Intent();
+
+                    intent.putExtra("msg",newMessage);
+                    setResult(RESULT_OK, intent);
 
                 }
             });
@@ -140,7 +142,16 @@ recyclerView.setAdapter(myMessageAdapter);
         newMessageObject.message=message.getText().toString();
         newMessageObject.fbid=currentId;
         String json=gson.toJson(newMessageObject);
-        mySocket.emit("admin", json);
+        String str=message.getText().toString();
+        message.setText("");
+        if(str.length()>0)
+        { mySocket.emit("admin", json);
+
+        Intent intent=new Intent();
+        intent.putExtra("id",currentId);
+        intent.putExtra("msg",str);
+        setResult(RESULT_OK,intent);}
+        
 //        MessageInfoModel messageInfoModel=new MessageInfoModel();
 //        messageInfoModel.message=message.getText().toString();
 //        messageInfoModel.isSender=false;
